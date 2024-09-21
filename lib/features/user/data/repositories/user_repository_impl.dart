@@ -8,7 +8,7 @@ import 'package:male_app/features/user/data/data_source/user_remote_data.dart';
 import 'package:male_app/features/user/domain/entities/user_entity.dart';
 import 'package:male_app/features/user/domain/repositories/user_repository.dart';
 
-class UserRepositoryImpl implements UserRepository {
+class UserRepositoryImpl extends UserRepository {
   final NetworkInfo networkInfo;
   final UserRemoteDataSource userRemoteDataSource;
   final UserCachedDataSource userCachedDataSource;
