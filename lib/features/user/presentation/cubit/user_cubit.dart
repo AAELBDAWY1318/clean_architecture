@@ -12,7 +12,7 @@ import 'package:male_app/features/user/domain/use_case/get_user.dart';
 import 'package:male_app/features/user/presentation/cubit/user_states.dart';
 
 class UserCubit extends Cubit<UserState> {
-  UserCubit(super.initialState);
+  UserCubit() : super(UserInitial());
 
   getFailureOrUser(int id) async {
     emit(GetUserLoading());

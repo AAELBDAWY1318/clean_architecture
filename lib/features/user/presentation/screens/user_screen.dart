@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:male_app/features/user/presentation/widgets/custom_container.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:male_app/features/user/presentation/cubit/user_cubit.dart';
+import 'package:male_app/features/user/presentation/cubit/user_states.dart';
+import 'package:male_app/features/user/presentation/widgets/custom_landing.dart';
+import 'package:male_app/features/user/presentation/widgets/custom_search_bar.dart';
+import 'package:male_app/features/user/presentation/widgets/user_data.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        title: const Text(
-          "Clean Archicture",
-          style: TextStyle(color: Colors.black),
-        ),
-        centerTitle: true,
-      ),
-      body: const Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-           CustomContainer(text: "ABDULLAH AWAD"),
-           
-          ],
-        ),
-      ),
+    return BlocBuilder<UserCubit, UserState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: state is GetUserSuccessfully
+              ? ListView(
+                  children: [
+                    const LandingWidget(),
+                    UserData(user: state.user),
+                    const CustomSearchBar(),
+                  ],
+                )
+              : state is GetUserFailure
+                  ? Text(state.errMessage)
+                  : const Center(child: CircularProgressIndicator()),
+        );
+      },
     );
   }
 }
